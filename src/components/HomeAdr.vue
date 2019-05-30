@@ -8,6 +8,15 @@
       label="E-mail"
       required
     ></v-text-field>
+    <v-select
+        v-model="select"
+        :items="countries"
+        :error-messages="selectErrors"
+        label="Country"
+        required
+        @change="$v.select.$touch()"
+        @blur="$v.select.$touch()"
+    ></v-select>
 
     <v-text-field 
         v-model="city"
