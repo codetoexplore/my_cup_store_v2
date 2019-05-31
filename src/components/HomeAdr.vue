@@ -1,28 +1,75 @@
 <template>
-  <v-form>
-    <v-text-field v-model="name" label="Name" required></v-text-field>
+  <v-form class="pa-3">
+    <v-text-field 
+        v-model="name"
+        label="Full Name"
+        placeholder="Betty Adams"
+        required
+        outline
+    ></v-text-field>
     <v-text-field
       v-model="email"
       v-validate="'required|email'"
       :error-messages="errors.collect('email')"
       label="E-mail"
+      placeholder="mymug@gmail.com"
       required
+      outline
     ></v-text-field>
     <v-select
-        v-model="select"
+        v-model="country"
         :items="countries"
         :error-messages="selectErrors"
         label="Country"
+        placeholder="Select"
         required
+        outline
         @change="$v.select.$touch()"
         @blur="$v.select.$touch()"
-    ></v-select>
+    ></v-select> 
 
     <v-text-field 
         v-model="city"
         label="City"
+        placeholder="Los Angeles"
         required
+        outline
     ></v-text-field>
+    <div class="usarest" v-if="country === 'United States'">
+        <v-text-field
+            v-model="state"
+            label="State"
+            placeholder="California"
+            required
+            outline
+        ></v-text-field>
+        <v-text-field
+            v-model="zip"
+            label="Zip"
+            placeholder="90001"
+            required
+            box
+        ></v-text-field>
+    </div>
+    <div v-else>
+        <v-text-field
+            v-model="state"
+            label="County"
+            placeholder="Berkshire"
+            required
+            outline
+        ></v-text-field>
+        <v-text-field
+            v-model="zip"
+            label="Postcode"
+            placeholder="RG301HL"
+            required
+            outline
+        ></v-text-field>
+    </div>
+    
+    
+
     <v-btn color="primary" @click="submit">Continue</v-btn>
     <v-btn >Go Back</v-btn>
   </v-form>
@@ -43,6 +90,10 @@
             name: "",
             email: "",
             city: "",
+            country: "",
+            state: "",
+            zip: "",
+            
             countries: ["Afghanistan","Albania","Algeria","Andorra","Angola","Anguilla","Antigua &amp; Barbuda","Argentina","Armenia","Aruba","Australia","Austria","Azerbaijan","Bahamas"
                         ,"Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bermuda","Bhutan","Bolivia","Bosnia &amp; Herzegovina","Botswana","Brazil","British Virgin Islands"
                         ,"Brunei","Bulgaria","Burkina Faso","Burundi","Cambodia","Cameroon","Canada","Cape Verde","Cayman Islands","Chad","Chile","China","Colombia","Congo","Cook Islands","Costa Rica"
