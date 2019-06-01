@@ -35,6 +35,13 @@
         required
         outline
     ></v-text-field>
+    <v-text-field
+        v-model="address"
+        label="Address"
+        placeholder="185 Berry Street Suite 550"
+        required
+        outline
+    ></v-text-field>
     <div class="usarest" v-if="country === 'United States'">
         <v-text-field
             v-model="state"
@@ -48,7 +55,7 @@
             label="Zip"
             placeholder="90001"
             required
-            box
+            outline
         ></v-text-field>
     </div>
     <div v-else>
@@ -93,6 +100,7 @@
             country: "",
             state: "",
             zip: "",
+            address: "",
             
             countries: ["Afghanistan","Albania","Algeria","Andorra","Angola","Anguilla","Antigua &amp; Barbuda","Argentina","Armenia","Aruba","Australia","Austria","Azerbaijan","Bahamas"
                         ,"Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bermuda","Bhutan","Bolivia","Bosnia &amp; Herzegovina","Botswana","Brazil","British Virgin Islands"
