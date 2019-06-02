@@ -2,7 +2,7 @@
   <v-container fluid fill-height class="home-hero">
     <v-layout justify-center align-center column pa-5>
       <div class="main-box">
-        <home-adr> </home-adr>
+        <home-pay> </home-pay>
       </div>
     </v-layout>
   </v-container>
@@ -11,10 +11,12 @@
 <script>
 import HomeLink from "@/components/HomeLink";
 import HomeAdr from "@/components/HomeAdr";
+import HomePay from "@/components/HomePay";
 export default {
   components: {
     HomeLink,
-    HomeAdr
+    HomeAdr,
+    HomePay
   }
 };
 </script>
