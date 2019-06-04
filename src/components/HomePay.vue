@@ -35,13 +35,13 @@
                     outline
                 ></v-text-field>
             </div>
-            <div v-else-if = "status === 'success'">
-                <p>success animation</p>
-            </div> 
             <div class="text-xs-center">
                 <v-btn color="primary">Buy {{ 1700 | dollar }}</v-btn>
             </div>
         </div>
+        <div v-else-if = "status === 'success'">
+                <p>success animation</p>
+        </div> 
         <div v-else>
             <p>Error</p>
         </div> 
