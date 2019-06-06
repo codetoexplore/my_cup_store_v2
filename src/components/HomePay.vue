@@ -36,7 +36,8 @@
                 ></v-text-field>
             </div>
             <div class="text-xs-center">
-                <v-btn color="primary">Buy {{ 1700 | dollar }}</v-btn>
+                <v-btn color="primary"
+                        @click="pay">Buy {{ 1700 | dollar }}</v-btn>
             </div>
         </div>
         <div v-else-if = "status === 'success'">
