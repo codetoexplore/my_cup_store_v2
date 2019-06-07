@@ -55,10 +55,11 @@
 </template>
 
 <script>
-    import {CardNumber,
-            CardExpiry,
-            CardCvc,
-            createToken
+    import {
+        CardNumber,
+        CardExpiry,
+        CardCvc,
+        createToken
     } from 'vue-stripe-elements-plus';
     import axios from 'axios';
     export default {
