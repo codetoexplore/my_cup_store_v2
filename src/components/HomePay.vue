@@ -94,7 +94,7 @@
                         empty: 'empty',
                         invalid: 'invalid'
                     }
-                }
+                },
                 metadata: {},
             }
         },
