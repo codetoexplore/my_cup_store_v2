@@ -13,7 +13,7 @@
                     class="stripe-element card-number field"
                     ref="cardNumber"
                     :stripe="stripeKey"
-                    :options='options'
+                    :options='StripeOptions'
                     @change='number = $event.complete'
                     required
                     outline
@@ -23,7 +23,7 @@
                     class="stripe-element card-expiry field"
                     ref="cardExpiry"
                     :stripe="stripeKey"
-                    :options='options'
+                    :options='StripeOptions'
                     @change='expiry = $event.complete'
                     placeholder="MM/YY"
                     required
@@ -34,7 +34,7 @@
                     class="stripe-element card-cvc field"
                     ref="cardCvc"
                     :stripe="stripeKey"
-                    :options='options'
+                    :options='StripeOptions'
                     @change='cvc = $event.complete'
                     placeholder="444"
                     required
@@ -88,6 +88,13 @@
                 StripeCounty: '',
                 StripePostalCode: '',
                 StripeEmail: '',
+                StripeOptions: {
+                    classes: {
+                        focus: 'focus',
+                        empty: 'empty',
+                        invalid: 'invalid'
+                    }
+                }
                 metadata: {},
             }
         },
