@@ -104,6 +104,11 @@
             }
         },
         components: { CardNumber, CardExpiry, CardCvc},
+        watch: {
+            number () { this.update() },
+            expiry () { this.update() },
+            cvc () { this.update() }
+        },
         methods: {
             update () {
                 this.complete = this.number && this.expiry && this.cvc
@@ -121,11 +126,6 @@
                         this.$refs.cardNumber.focus()
                     }
                 }
-            },
-            watch: {
-                number () { this.update() },
-                expiry () { this.update() },
-                cvc () { this.update() }
             },
             pay() {
                 createToken().then(data => {
