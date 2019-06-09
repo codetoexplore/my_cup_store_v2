@@ -13,6 +13,8 @@
                     class="stripe-element card-number field"
                     ref="cardNumber"
                     :stripe="stripeKey"
+                    :options='options'
+                    @change='number = $event.complete'
                     required
                     outline
                 ></v-text-field>
@@ -21,6 +23,8 @@
                     class="stripe-element card-expiry field"
                     ref="cardExpiry"
                     :stripe="stripeKey"
+                    :options='options'
+                    @change='expiry = $event.complete'
                     placeholder="MM/YY"
                     required
                     outline
@@ -30,6 +34,8 @@
                     class="stripe-element card-cvc field"
                     ref="cardCvc"
                     :stripe="stripeKey"
+                    :options='options'
+                    @change='cvc = $event.complete'
                     placeholder="444"
                     required
                     outline
@@ -68,6 +74,7 @@
                 response: '',
                 status: '',
                 submitted: false,
+                complete: false,
                 number: false,
                 expiry: false,
                 cvc: false,
@@ -91,6 +98,28 @@
         },
         components: { CardNumber, CardExpiry, CardCvc},
         methods: {
+            update () {
+                this.complete = this.number && this.expiry && this.cvc
+
+                if (this.number) {
+                    if (!this.expiry) {
+                        this.$refs.cardExpiry.focus()
+                    } else if (!this.cvc) {
+                        this.$refs.cardCvc.focus()
+                    }
+                } else if (this.expiry) {
+                    if (!this.cvc) {
+                        this.$refs.cardCvc.focus()
+                    } else if (!this.number) {
+                        this.$refs.cardNumber.focus()
+                    }
+                }
+            },
+            watch: {
+                number () { this.update() },
+                expiry () { this.update() },
+                cvc () { this.update() }
+            },
             pay() {
                 createToken().then(data => {
                     this.submitted = true;
