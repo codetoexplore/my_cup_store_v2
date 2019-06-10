@@ -42,8 +42,9 @@
                 ></v-text-field>
             </div>
             <div class="text-xs-center">
-                <v-btn color="primary"
-                        @click="pay">Buy {{ 1700 | dollar }}</v-btn>
+                <v-btn  color="primary"
+                        @click="pay"
+                > Buy {{ 1700 | dollar }}</v-btn>
             </div>
         </div>
         <div v-else-if = "status === 'success'">
@@ -103,30 +104,34 @@
                 return `$${amount / 100}`
             }
         },
-        components: { CardNumber, CardExpiry, CardCvc},
+        components: { CardNumber, CardExpiry, CardCvc },
         watch: {
             number () { this.update() },
             expiry () { this.update() },
             cvc () { this.update() }
         },
         methods: {
-            update () {
+             update () {
                 this.complete = this.number && this.expiry && this.cvc
 
-                if (this.number) {
+                // field completed, find field to focus next
+            if (this.number) {
                     if (!this.expiry) {
                         this.$refs.cardExpiry.focus()
-                    } else if (!this.cvc) {
-                        this.$refs.cardCvc.focus()
-                    }
-                } else if (this.expiry) {
-                    if (!this.cvc) {
-                        this.$refs.cardCvc.focus()
-                    } else if (!this.number) {
-                        this.$refs.cardNumber.focus()
-                    }
+                } else if (!this.cvc) {
+                    this.$refs.cardCvc.focus()
                 }
+            } else if (this.expiry) {
+                if (!this.cvc) {
+                    this.$refs.cardCvc.focus()
+                } else if (!this.number) {
+                    this.$refs.cardNumber.focus()
+                }
+            }
+            // no focus magic for the CVC field as it gets complete with three
+            // numbers, but can also have four
             },
+
             pay() {
                 createToken().then(data => {
                     this.submitted = true;
