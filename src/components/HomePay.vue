@@ -13,8 +13,6 @@
                     class="stripe-element card-number field"
                     ref="cardNumber"
                     :stripe="stripeKey"
-                    :options='StripeOptions'
-                    @change='number = $event.complete'
                     required
                     outline
                 ></v-text-field>
@@ -23,8 +21,6 @@
                     class="stripe-element card-expiry field"
                     ref="cardExpiry"
                     :stripe="stripeKey"
-                    :options='StripeOptions'
-                    @change='expiry = $event.complete'
                     placeholder="MM/YY"
                     required
                     outline
@@ -34,22 +30,18 @@
                     class="stripe-element card-cvc field"
                     ref="cardCvc"
                     :stripe="stripeKey"
-                    :options='StripeOptions'
-                    @change='cvc = $event.complete'
                     placeholder="444"
                     required
                     outline
                 ></v-text-field>
             </div>
+            <div v-else-if = "status === 'success'">
+                <p>success animation</p>
+            </div> 
             <div class="text-xs-center">
-                <v-btn  color="primary"
-                        @click="pay"
-                > Buy {{ 1700 | dollar }}</v-btn>
+                <v-btn color="primary" @click="pay">Buy {{ 1700 | dollar }}</v-btn>
             </div>
         </div>
-        <div v-else-if = "status === 'success'">
-                <p>success animation</p>
-        </div> 
         <div v-else>
             <p>Error</p>
         </div> 
@@ -62,11 +54,10 @@
 </template>
 
 <script>
-    import {
-        CardNumber,
-        CardExpiry,
-        CardCvc,
-        createToken
+    import {CardNumber,
+            CardExpiry,
+            CardCvc,
+            createToken
     } from 'vue-stripe-elements-plus';
     import axios from 'axios';
     export default {
@@ -75,7 +66,6 @@
                 response: '',
                 status: '',
                 submitted: false,
-                complete: false,
                 number: false,
                 expiry: false,
                 cvc: false,
@@ -89,13 +79,6 @@
                 StripeCounty: '',
                 StripePostalCode: '',
                 StripeEmail: '',
-                StripeOptions: {
-                    classes: {
-                        focus: 'focus',
-                        empty: 'empty',
-                        invalid: 'invalid'
-                    }
-                },
                 metadata: {},
             }
         },
@@ -104,34 +87,8 @@
                 return `$${amount / 100}`
             }
         },
-        components: { CardNumber, CardExpiry, CardCvc },
-        watch: {
-            number () { this.update() },
-            expiry () { this.update() },
-            cvc () { this.update() }
-        },
+        components: { CardNumber, CardExpiry, CardCvc},
         methods: {
-             update () {
-                this.complete = this.number && this.expiry && this.cvc
-
-                // field completed, find field to focus next
-            if (this.number) {
-                    if (!this.expiry) {
-                        this.$refs.cardExpiry.focus()
-                } else if (!this.cvc) {
-                    this.$refs.cardCvc.focus()
-                }
-            } else if (this.expiry) {
-                if (!this.cvc) {
-                    this.$refs.cardCvc.focus()
-                } else if (!this.number) {
-                    this.$refs.cardNumber.focus()
-                }
-            }
-            // no focus magic for the CVC field as it gets complete with three
-            // numbers, but can also have four
-            },
-
             pay() {
                 createToken().then(data => {
                     this.submitted = true;
@@ -169,7 +126,7 @@
                 });
             }
         }
-    };
+    }
 
 
 </script>
